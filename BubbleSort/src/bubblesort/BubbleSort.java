@@ -7,8 +7,7 @@ import java.util.Random;
 public class BubbleSort {
 
     public static void main(String[] args) {
-       
-        long tempo1 = System.currentTimeMillis();
+       long tempo1 = System.currentTimeMillis();
         
         System.out.println("Tempo inicial = " + tempo1);
         
@@ -24,10 +23,8 @@ public class BubbleSort {
         System.out.println("Tempo final = " + tempo2);
 
         System.out.println(tempo2 - tempo1 + " milissegundos");
-        
     }
-    
-    private static void bubbleSort(int[] v){
+     private static void bubbleSort(int[] v){
         for(int ultimo = v.length-1; ultimo > 0; ultimo--){ // O(n^2)
             for(int i = 0; i < ultimo; i++){
                 if (v[i] > v[i+1]){
@@ -36,9 +33,8 @@ public class BubbleSort {
             }
         }
     }
-    
-    
-    public static int[] gerarVetor(int n){
+     public static int[] gerarVetor(int n){/* esse método cria um vetor aleatório do tamanho de n e preenche o vetor com números
+                                              inteiros */
         int []v = new int [n];
         Random gerador = new Random();
         for(int i = 0; i < n; i++){
@@ -47,11 +43,13 @@ public class BubbleSort {
         
         return v;
     }
-
-    private static void trocar(int[] v, int i, int j) {
+     private static void trocar(int[] v, int i, int j) { // lógica de troca provavelmente precisa ser atualizada
         int aux = v[i];
         v[i] = v[j];
         v[j] = aux;
-    }
     
+    }
 }
+
+    
+
