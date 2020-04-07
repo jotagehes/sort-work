@@ -1,2 +1,2 @@
 # trabalhoJ
-Trabalho João Paulo
+Trabalho de Algoritmos de Ordenação
