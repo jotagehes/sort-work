@@ -7,9 +7,9 @@ public class Ordenacao {
         
     public static void main(String[] args) {
         for(int i = 0; i < 6; i ++){//esse for controla a quantidade de vezes que o programa é executado
-            int base = 10;
+            int base = 100;
             int potencia = 2;
-            int n = (int)Math.pow(base, potencia);//função que vai determinar o tamanho do vetor exponencialmente (iniciando com 100 posições)
+            int n = (int)Math.pow(base, potencia);//função que vai determinar o tamanho do vetor exponencialmente (iniciando com 10000 posições)
             int vetorDecrescente [] = new int [n]; // vetor auxiliar usado para o pior caso (se necessário)
             int[] v = gerarVetor(n); //esse método vai gerar o vetor com a quantidade n e irá preencher todo o vetor com números de 0 a 999;
             int vetorBubble [] = new int [n]; //copia do vetor original
@@ -27,29 +27,60 @@ public class Ordenacao {
             
             long tinibubble = System.currentTimeMillis();
             bubbleSort(vetorBubble);//medio caso
-            //gravar tempo final medio caso
+            long totmedio = System.currentTimeMillis()-tinibubble; //tempo total do médio caso
+            System.out.println("O tempo de execução do médio caso Bubble Sort é: " + totmedio + "ms\n"); //gravar tempo final medio caso
             
-            //chamar bubble de novo para melhor caso (ini e fim)
-            
-            
+            long tinibubble2 = System.currentTimeMillis();
+            bubbleSort(vetorBubble);//melhor caso
+            long totmelhor = System.currentTimeMillis()-tinibubble2; //tempo total do melhor caso
+            System.out.println("O tempo de execução do Melhor caso Bubble Sort é: " + totmelhor + "ms\n");
             //criar cópia ordenada drecrescente do vetor para execução do pior caso
+            
+            
+            
             
             long tiniquick = System.currentTimeMillis();
             quickSort(vetorQuick, 0, vetorQuick.length-1);
+            long ttmedioquick = System.currentTimeMillis()-tiniquick;
+            System.out.println("O tempo de execução do médio caso Quick Sort é: " + ttmedioquick + "ms\n"); //gravar tempo final medio caso
+            
+            long tiniquick2 = System.currentTimeMillis();
+            quickSort(vetorQuick, 0, vetorQuick.length-1);
+            long totmelhor2 = System.currentTimeMillis() - tiniquick2;
+            System.out.println("O tempo de execução do Melhor caso Quick Sort é: " + totmelhor2 + "ms\n"); //gravar tempo final medio caso
+            
+            
             
             long tiniselection = System.currentTimeMillis();
             selectionSort(vetorSelection);
+            long ttmedioselec = System.currentTimeMillis()- tiniselection;
+            System.out.println("O tempo de execução do médio caso Selection Sort é: " + ttmedioselec + "ms\n"); //gravar tempo final medio caso
+            long tiniselection2 = System.currentTimeMillis();
+            selectionSort(vetorSelection);
+            long ttmelhorselec = System.currentTimeMillis()- tiniselection2;
+            System.out.println("O tempo de execução do Melhor caso Selection Sort é: " + ttmelhorselec + "ms\n"); //gravar tempo final medio caso
+            
+            
+            
             
             long tiniinsertion = System.currentTimeMillis();
             insertionSort(vetorInsertion);
+            long ttmedioinser = System.currentTimeMillis()- tiniinsertion;
+            System.out.println("O tempo de execução do médio caso Insertion Sort é: " + ttmedioinser + "ms\n"); //gravar tempo final medio caso
+            long tiniinsertion2 = System.currentTimeMillis();
+            insertionSort(vetorInsertion);
+            long ttmelhorinser = System.currentTimeMillis()- tiniinsertion2;
+            System.out.println("O tempo de execução do médio caso Insertion Sort é: " + ttmelhorinser + "ms\n"); //gravar tempo final medio caso
             
-            int[] w = new int[n];
-            long tinimerge = System.currentTimeMillis();
-            mergeSort(vetorMerge, w, 0, vetorMerge.length);
+            
+            
+            //int[] w = new int[n];
+            //long tinimerge = System.currentTimeMillis();
+            //mergeSort(vetorMerge, 0, vetorMerge.length);
             
             
             
-            
+            potencia = 2 + potencia;
             /*COLOCAR NO FIM DA EXECUÇÃO POTENCIA + 2*/
             
         }
@@ -160,27 +191,56 @@ private static void insertionSort(int[] v){
             
         }
     }
-    private static void mergeSort(int[] v, int[] w, int ini, int fim) {
-        if (ini < fim) {
-            int meio = (ini + fim) / 2;
-            mergeSort(v, w, ini, meio);
-            mergeSort(v, w, meio+1, fim);
-            intercalar(v, w, ini, meio, fim);
-        }
-    }
 
-    private static void intercalar(int[] v, int[] w, int ini, int meio, int fim) {
-        for (int k = ini; k <= fim; k++) 
-            w[k] = v[k];
-
-            int i = ini;
-            int j = meio + 1;
-
-        for (int k = ini; k <= fim; k++){
-            if (i > meio) v[k] = w[j++];
-            else if (j > fim) v[k] = w[i++];
-            else if (w[i] < w[j]) v[k] = w[i++];
-            else v[k] = w[j++];
-        }
-    }
+     public static void mergeSort(int a[], int p, int r) {  
+         
+        int q;  
+        if(p < r){  
+            
+            q = (p + r)/2;  
+            mergeSort(a, p, q);  
+            mergeSort(a, q + 1, r);  
+            merge(a, p, q, r);  
+        }  
+    }  
+    
+    
+    public static void merge(int a[], int p, int q, int r){
+        
+        int i = p, j = q + 1, k, index = p;  
+        int temp[] = new int[10];  
+        while(i <= q && j <= r){  
+            
+            if(a[i]<a[j]){  
+                temp[index] = a[i];  
+                i = i+1;  
+            } else{  
+                temp[index] = a[j];  
+                j = j+1;  
+            }  
+            index++;  
+        }  
+        if(i>q){  
+            
+            while(j<=r){  
+                
+                temp[index] = a[j];  
+                index++;  
+                j++;  
+            }  
+        }  
+        else{  
+            while(i<=q){  
+                
+                temp[index] = a[i];  
+                index++;  
+                i++;  
+            }  
+        }  
+        k = p;  
+        while(k<index){  
+            a[k]=temp[k];  
+            k++;  
+        }  
+    }      
     }
